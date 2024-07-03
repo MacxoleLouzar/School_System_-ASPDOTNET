@@ -15,7 +15,7 @@ namespace api.Model
         public string schedule { get; set; }
         public int TeacherId { get; set; }
         public int StreamId { get; set; }
-        public Stream Stream { get; set; }
+        public Streams? Streams { get; set; }
         public Teacher Teacher { get; set; }
     }
 }

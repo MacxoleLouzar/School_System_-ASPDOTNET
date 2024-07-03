@@ -1,18 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace api.Model
 {
-    [Table("Grade")]
+    [Table("Grades")]
     public class Grades
     {
+        [Key]
         public int GradeId { get; set; }
         public string GradeName { get; set; }
         public DateTime Year { get; set; }
         public ICollection<Student> Students { get; set; }
-        public Stream stream{ get; set; }
+        public int SchemaId { get; set; }
+        public Streams streams{ get; set; }
     }
 }

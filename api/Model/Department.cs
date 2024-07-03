@@ -11,6 +11,6 @@ namespace api.Model
     {
         public int departmentId { get; set; }
         public string departmentName { get; set; } = string.Empty;
-        public ICollection<SchoolStaff> staffs { get; set; }
+        public ICollection<SchoolStaff> SchoolStaffs { get; set; }
     }
 }
