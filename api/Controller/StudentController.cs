@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.DTO.StudentDTO;
+using api.Interfaces;
 using api.Mappers;
 using api.Model;
+using api.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,26 +17,23 @@ namespace api.Controller
     [Route("api/[controller]")]
     public class StudentController : ControllerBase
     {
-        private readonly ApplicationDbContext _Context;
-        public StudentController(ApplicationDbContext Context)
+     
+        private readonly IStudentRepository _StudentRepository;
+        public StudentController(IStudentRepository StudentRepository)
         {
-            _Context = Context;
+            _StudentRepository = StudentRepository;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllStudents()
         {
-            var students = _Context.Students.ToList().Select(x => x.ToStudentListDTOs());
-            return Ok(students);
+            var students = await _StudentRepository.GetStudentsAsync();
+            var studentDTOs = students.Select(x => x.ToStudentListDTOs()).ToList();
+            return Ok(studentDTOs);
         }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetStudentById([FromRoute]int id)
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetStudentById([FromRoute] int id)
         {
-            var student = await _Context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
+            var student = await _StudentRepository.GetStudentByIdAsync(id);
             return Ok(student.ToStudentListDTOs());
         }
 
@@ -42,41 +41,21 @@ namespace api.Controller
         public async Task<IActionResult> AddStudent([FromBody] StudentCreateDTO studentDTO)
         {
             var StudentModel = studentDTO.ToCreateStudentDTO();
-            _Context.Students.Add(StudentModel);
-            await _Context.SaveChangesAsync();
+            await _StudentRepository.AddStudentAsync(StudentModel);
             return CreatedAtAction(nameof(GetStudentById), new { id = StudentModel.StudentID }, StudentModel.ToStudentListDTOs());
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStudent([FromRoute]int id, [FromBody] StudentUpdateDTO studentDTO)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateStudent([FromRoute] int id, [FromBody] StudentUpdateDTO studentDTO)
         {
-            var existingStudent = _Context.Students.Find(id);
-            if (existingStudent == null)
-            {
-                return NotFound();
-            }
-            existingStudent.StudentName = studentDTO.StudentName;
-            existingStudent.StudentSurname = studentDTO.StudentSurname;
-            existingStudent.StudentGender = studentDTO.StudentGender;
-            existingStudent.DOB = studentDTO.DOB;
-            existingStudent.StudentEmail = studentDTO.StudentEmail;
-            existingStudent.StudentPhone = studentDTO.StudentPhone;
-            existingStudent.StudentAddress = studentDTO.StudentAddress;
-            existingStudent.EnrollmentDate = studentDTO.EnrollmentDate;
-            await _Context.SaveChangesAsync();
+            var existingStudent = await _StudentRepository.UpdateStudentAsync(id, studentDTO);
             return Ok(existingStudent.ToStudentListDTOs());
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent([FromRoute]int id)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteStudent([FromRoute] int id)
         {
-            var student = _Context.Students.Find(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            _Context.Students.Remove(student);
-            await _Context.SaveChangesAsync();
+            await _StudentRepository.DeleteStudentAsync(id);
             return NoContent();
         }
     }
