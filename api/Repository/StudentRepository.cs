@@ -13,13 +13,10 @@ namespace api.Repository
     public class StudentRepository : IStudentRepository
     {
         private readonly ApplicationDbContext _context;
-
         public StudentRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-
-
         public async Task<List<Student>> GetStudentsAsync()
         {
             return await _context.Students.ToListAsync();
@@ -34,7 +31,6 @@ namespace api.Repository
             }
             return student;
         }
-
         public async Task<Student> AddStudentAsync(Student student)
         {
             await _context.Students.AddAsync(student);
@@ -61,7 +57,6 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return student;
         }
-
         public async Task<Student> DeleteStudentAsync(int studentId)
         {
            var student = await _context.Students.FindAsync(studentId);
