@@ -12,9 +12,9 @@ namespace api.Model
     {
         [Key]
         public int StreamId { get; set; }
-        public string StreamName { get; set; }
+        public string StreamName { get; set; } = String.Empty;
         public string? Description { get; set; }
-        public ICollection<Subject> Subjects { get; set; }
+        public ICollection<Subject?> Subjects { get; set; }
     
     }
 }

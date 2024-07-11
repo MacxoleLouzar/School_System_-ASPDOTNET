@@ -18,7 +18,6 @@ namespace api.Model
         public string StudentPhone { get; set; }= string.Empty;
         public string StudentEmail { get; set; }= string.Empty;
         public string StudentAddress { get; set; }= string.Empty;
-    
         public DateTime EnrollmentDate { get; set; }
     }
 }

@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.Model
+namespace api.DTO.TeacherDTO
 {
-    [Table("Teacher")]
-    public class Teacher
+    public class TeachersListDTO
     {
-        public int TeacherId { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherLastName { get; set; }
         public string DOB { get; set; }
@@ -19,6 +16,5 @@ namespace api.Model
         public string TeacherEmail { get; set; }
         public DateTime TeacherHiredDate { get; set; }
         public string TeacherRole { get; set; }
-       
     }
 }

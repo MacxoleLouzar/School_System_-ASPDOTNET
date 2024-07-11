@@ -59,14 +59,14 @@ namespace api.Repository
         }
         public async Task<Student> DeleteStudentAsync(int studentId)
         {
-           var student = await _context.Students.FindAsync(studentId);
-            if (student == null)
+            var student = await _context.Students.FindAsync(studentId);
+            if (student != null)
             {
-                return null;
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+                return student;
             }
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-            return student;
+            return null;
         }
     }
 }

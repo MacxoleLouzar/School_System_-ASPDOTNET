@@ -40,7 +40,7 @@ namespace api.Repository
         public async Task<Teacher?> GetTeacherByIdAsync(int id)
         {
             var teacher = await _context.Teachers.FirstOrDefaultAsync(x => x.TeacherId == id);
-            if (teacher is null)
+            if (teacher == null)
             {
                 return null;
             }
@@ -49,7 +49,7 @@ namespace api.Repository
 
         public async Task<List<Teacher>> GetTeachersAsync()
         {
-            var teachers = await _context.Teachers.Include(x => x.Subjects).ToListAsync();
+            var teachers = await _context.Teachers.ToListAsync();
             return teachers;
         }
 
@@ -63,8 +63,11 @@ namespace api.Repository
                 existingTeacher.TeacherEmail = teacher.TeacherEmail;
                 existingTeacher.TeacherPhone = teacher.TeacherPhone;
                 existingTeacher.TeacherAddress = teacher.TeacherAddress;
+                existingTeacher.TeacherGender = teacher.TeacherGender;
+                existingTeacher.TeacherRole = teacher.TeacherRole;
+                existingTeacher.TeacherHiredDate = teacher.TeacherHiredDate;
                 existingTeacher.DOB = teacher.DOB;
-                existingTeacher.Subjects = teacher.Subjects;
+                
 
                 _context.Teachers.Update(existingTeacher);
                 await _context.SaveChangesAsync();

@@ -320,7 +320,7 @@ namespace api.Migrations
                         .HasForeignKey("StreamsStreamId");
 
                     b.HasOne("api.Model.Teacher", "Teacher")
-                        .WithMany("Subjects")
+                        .WithMany()
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -341,11 +341,6 @@ namespace api.Migrations
                 });
 
             modelBuilder.Entity("api.Model.Streams", b =>
-                {
-                    b.Navigation("Subjects");
-                });
-
-            modelBuilder.Entity("api.Model.Teacher", b =>
                 {
                     b.Navigation("Subjects");
                 });

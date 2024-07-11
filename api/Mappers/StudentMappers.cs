@@ -23,6 +23,8 @@ namespace api.Mappers
                 DOB = studentModel.DOB,
                EnrollmentDate = studentModel.EnrollmentDate
             };
+
+            
         }
 
         public static Student ToCreateStudentDTO(this StudentCreateDTO studentCreateDTOs)

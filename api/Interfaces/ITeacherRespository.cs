@@ -10,9 +10,9 @@ namespace api.Interfaces
     {
         Task<List<Teacher>> GetTeachersAsync();
         Task<Teacher?> GetTeacherByIdAsync(int id);
-        Task<Teacher?> CreateTeacherAsync(Teacher teacher);
-        Task<Teacher?> UpdateTeacherAsync(int id, Teacher teacher);
-        Task<Teacher?> DeleteTeacherAsync(int id);
+        Task<Teacher> CreateTeacherAsync(Teacher teacher);
+        Task<Teacher> UpdateTeacherAsync(int id, Teacher teacher);
+        Task<Teacher> DeleteTeacherAsync(int id);
 
     }
 }
