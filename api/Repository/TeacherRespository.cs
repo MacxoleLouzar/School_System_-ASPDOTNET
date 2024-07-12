@@ -18,14 +18,14 @@ namespace api.Repository
             _context = context;
         }
 
-        public async Task<Teacher?> CreateTeacherAsync(Teacher teacher)
+        public async Task<Teacher> CreateTeacherAsync(Teacher teacher)
         {
             await _context.Teachers.AddAsync(teacher);
             await _context.SaveChangesAsync();
             return teacher;
         }
 
-        public async Task<Teacher?> DeleteTeacherAsync(int id)
+        public async Task<Teacher> DeleteTeacherAsync(int id)
         {
             var teacher = await _context.Teachers.FirstOrDefaultAsync(x => x.TeacherId == id);
             if (teacher is not null)
@@ -53,7 +53,7 @@ namespace api.Repository
             return teachers;
         }
 
-        public async Task<Teacher?> UpdateTeacherAsync(int id, Teacher teacher)
+        public async Task<Teacher> UpdateTeacherAsync(int id, Teacher teacher)
         {
             var existingTeacher = await _context.Teachers.FirstOrDefaultAsync(x => x.TeacherId == id);
             if (existingTeacher is not null)

@@ -34,8 +34,8 @@ namespace api.Controller
         public async Task<IActionResult> GetTeacherById(int id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            var teacher = await _teacherRespository.GetTeacherByIdAsync(id);
-            return Ok(teacher.ToTeacherListDTO());
+            var teacherModel = await _teacherRespository.GetTeacherByIdAsync(id);
+            return Ok(teacherModel?.ToTeacherListDTO());
         }
 
         [HttpPost]
