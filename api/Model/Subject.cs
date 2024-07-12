@@ -16,6 +16,6 @@ namespace api.Model
         public int TeacherId { get; set; }
         public int StreamId { get; set; }
         public Streams? Streams { get; set; }
-        public Teacher? Teacher { get; set; }
+        public Teacher? Teacher { get; set; } = null;
     }
 }
