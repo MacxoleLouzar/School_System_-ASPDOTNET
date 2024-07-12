@@ -10,12 +10,12 @@ namespace api.Model
     public class Subject
     {
         public int SubjectId { get; set; }
-        public string SubjectName { get; set; }
-        public string SubjectCode { get; set; }
-        public string schedule { get; set; }
+        public string SubjectName { get; set; } = String.Empty;
+        public string SubjectCode { get; set; } = String.Empty;
+        public string schedule { get; set; } = String.Empty;
         public int TeacherId { get; set; }
         public int StreamId { get; set; }
         public Streams? Streams { get; set; }
-        public Teacher? Teacher { get; set; } = null;
+        public Teacher? Teacher { get; set; }
     }
 }
