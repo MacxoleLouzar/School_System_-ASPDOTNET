@@ -2,15 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Model;
 
 namespace api.Interfaces
 {
     public interface IStreamRepository
     {
-       Task<List<Stream>> GetAllStreams();
-       Task<Stream> GetStreamById(int id);
-        Task<Stream> CreateStream(Stream stream);
-        Task<Stream> UpdateStream(int id, Stream stream);
-        Task<Stream> DeleteStream(int id);
+        Task<List<Streams>> GetAllStreamsAsync();
+        Task<Streams> GetStreamByIdAsync(int id);
+        Task<Streams> CreateStreamAsync(Streams stream);
+        Task<Streams> UpdateStreamAsync(int id, Streams stream);
+        Task<Streams> DeleteStreamAsync(int id);
     }
 }
