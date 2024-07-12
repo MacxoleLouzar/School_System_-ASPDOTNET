@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.DTO.StreamDTO;
 using api.Model;
 
+
 namespace api.Mappers
 {
     public static class StremMapper
@@ -16,7 +17,7 @@ namespace api.Mappers
                 StreamId = streamListDTO.StreamId,
                 StreamName = streamListDTO.StreamName,
                 Description = streamListDTO.Description,
-               // Subjects = streamListDTO.Subjects?.Select(x => x.ToSubjectDTO()).ToList();
+               Subjects = streamListDTO.Subjects.Select(x => x.ToSubjectListDTO()).ToList();
             };
         }
 
