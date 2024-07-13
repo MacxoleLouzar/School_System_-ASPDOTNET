@@ -9,6 +9,6 @@ namespace api.DTO.StreamDTO
     {
         public string StreamName { get; set; } = String.Empty;
         public string? Description { get; set; }
-  
+        
     }
 }

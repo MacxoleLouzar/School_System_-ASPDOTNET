@@ -17,7 +17,7 @@ namespace api.Mappers
                 StreamId = streamListDTO.StreamId,
                 StreamName = streamListDTO.StreamName,
                 Description = streamListDTO.Description,
-               Subjects = streamListDTO.Subjects.Select(x => x.ToSubjectListDTO()).ToList();
+               Subjects = streamListDTO.Subjects?.Select(x => x.ToSubjectListDTO()).ToList()
             };
         }
 
