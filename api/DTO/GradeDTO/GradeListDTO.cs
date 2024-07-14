@@ -1,21 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using api.Model;
 
-namespace api.Model
+namespace api.DTO.GradeDTO
 {
-    [Table("Grades")]
-    public class Grades
+    public class GradeListDTO
     {
-        [Key]
         public int GradeId { get; set; }
         public string GradeName { get; set; }
         public DateTime Year { get; set; }
-        public ICollection<Student?> Students { get; set; }
-        public int SchemaId { get; set; }
+        public ICollection<Student> Students { get; set; }
         public Streams streams{ get; set; }
     }
 }
