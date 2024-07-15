@@ -27,14 +27,14 @@ namespace api.Controller
         public async Task<IActionResult> GetAllStudents()
         {
             var students = await _StudentRepository.GetStudentsAsync();
-            var studentDTOs = students.Select(x => x.ToStudentListDTOs()).ToList();
+            var studentDTOs = students.Select(x => x.ToStudentListDTO()).ToList();
             return Ok(studentDTOs);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetStudentById([FromRoute] int id)
         {
             var student = await _StudentRepository.GetStudentByIdAsync(id);
-            return Ok(student.ToStudentListDTOs());
+            return Ok(student.ToStudentListDTO());
         }
 
         [HttpPost]
@@ -42,14 +42,14 @@ namespace api.Controller
         {
             var StudentModel = studentDTO.ToCreateStudentDTO();
             await _StudentRepository.AddStudentAsync(StudentModel);
-            return CreatedAtAction(nameof(GetStudentById), new { id = StudentModel.StudentID }, StudentModel.ToStudentListDTOs());
+            return CreatedAtAction(nameof(GetStudentById), new { id = StudentModel.StudentID }, StudentModel.ToStudentListDTO());
         }
 
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateStudent([FromRoute] int id, [FromBody] StudentUpdateDTO studentDTO)
         {
             var existingStudent = await _StudentRepository.UpdateStudentAsync(id, studentDTO);
-            return Ok(existingStudent.ToStudentListDTOs());
+            return Ok(existingStudent.ToStudentListDTO());
         }
 
         [HttpDelete("{id:int}")]

@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240712100843_init")]
-    partial class init
+    [Migration("20240715192444_init1")]
+    partial class init1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,13 +75,13 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SchemaId")
+                    b.Property<int>("StreamId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Year")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("streamsStreamId")
+                    b.Property<int?>("streamsStreamId")
                         .HasColumnType("int");
 
                     b.HasKey("GradeId");
@@ -291,9 +291,7 @@ namespace api.Migrations
                 {
                     b.HasOne("api.Model.Streams", "streams")
                         .WithMany()
-                        .HasForeignKey("streamsStreamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("streamsStreamId");
 
                     b.Navigation("streams");
                 });

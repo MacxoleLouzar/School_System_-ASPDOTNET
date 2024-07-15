@@ -19,5 +19,10 @@ namespace api.Model
         public string StudentEmail { get; set; }= string.Empty;
         public string StudentAddress { get; set; }= string.Empty;
         public DateTime EnrollmentDate { get; set; }
+
+        internal object ToStudentDto()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

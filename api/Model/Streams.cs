@@ -14,7 +14,7 @@ namespace api.Model
         public int StreamId { get; set; }
         public string StreamName { get; set; } = String.Empty;
         public string? Description { get; set; }
-        public ICollection<Subject?> Subjects { get; set; }
+        public List<Subject?> Subjects { get; set; } = new List<Subject?>();
     
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using api.DTO.GradeDTO;
 using api.Model;
 
 namespace api.Interfaces
@@ -13,5 +14,6 @@ namespace api.Interfaces
         Task<Grades> CreateGradeAsync(Grades grade);
         Task<Grades> UpdateGradeAsync(int id, Grades grade);
         Task<Grades> DeleteGradeAsync(int gradeId);
+      
     }
 }

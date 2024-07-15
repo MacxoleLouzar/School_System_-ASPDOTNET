@@ -9,7 +9,7 @@ namespace api.Mappers
 {
     public static class StudentMappers
     {
-        public static StudentListDTOs ToStudentListDTOs(this Student studentModel)
+        public static StudentListDTOs ToStudentListDTO(this Student studentModel)
         {
             return new StudentListDTOs
             {

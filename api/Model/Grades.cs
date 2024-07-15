@@ -12,10 +12,10 @@ namespace api.Model
     {
         [Key]
         public int GradeId { get; set; }
-        public string GradeName { get; set; }
+        public string GradeName { get; set; } = String.Empty;
         public DateTime Year { get; set; }
-        public ICollection<Student?> Students { get; set; }
-        public int SchemaId { get; set; }
-        public Streams streams{ get; set; }
+        public List<Student?> Students { get; set; } = new List<Student?>();
+        public int StreamId { get; set; } = 0;
+        public Streams? streams{ get; set; }
     }
 }

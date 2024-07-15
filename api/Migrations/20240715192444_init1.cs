@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class init1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -89,8 +89,8 @@ namespace api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GradeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SchemaId = table.Column<int>(type: "int", nullable: false),
-                    streamsStreamId = table.Column<int>(type: "int", nullable: false)
+                    StreamId = table.Column<int>(type: "int", nullable: false),
+                    streamsStreamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,8 +99,7 @@ namespace api.Migrations
                         name: "FK_Grades_Streams_streamsStreamId",
                         column: x => x.streamsStreamId,
                         principalTable: "Streams",
-                        principalColumn: "StreamId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StreamId");
                 });
 
             migrationBuilder.CreateTable(

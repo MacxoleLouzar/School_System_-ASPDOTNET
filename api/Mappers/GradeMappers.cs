@@ -10,29 +10,28 @@ namespace api.Mappers
 {
     public static class GradeMappers
     {
-        public static GradeCreateDTO ToCreateGradeDto(this GradeCreateDTO  gradeCreateDTO)
+        public static Grades ToCreateGradeDto(this GradeCreateDTO gradeCreateDTO)
         {
-            return new GradeCreateDTO
+            return new Grades
             {
                 GradeName = gradeCreateDTO.GradeName,
                 Year = gradeCreateDTO.Year
             };
         }
-        public static Grades ToReadGradeDto(this Grades grade)
+        public static GradeListDTO ToReadGradeDto(this Grades grade)
         {
-            return new Grades
+            return new GradeListDTO
             {
                 GradeId = grade.GradeId,
                 GradeName = grade.GradeName,
+                streams = grade.streams,
                 Year = grade.Year,
-                Students = GradeListDTO.Students?.Select(x => x.ToStudentListDTOs()).ToList(),
-                streams = grade.streams
-                
+                Students = grade.Students?.Select(x => x.ToStudentListDTO()).ToList(),
             };
         }
-        public static GradeUpdateDTO ToEditGradeDto(this GradeUpdateDTO gradeUpdateDTO)
+        public static Grades ToEditGradeDto(this GradeUpdateDTO gradeUpdateDTO)
         {
-            return new GradeUpdateDTO
+            return new Grades
             {
                 GradeName = gradeUpdateDTO.GradeName,
                 Year = gradeUpdateDTO.Year
