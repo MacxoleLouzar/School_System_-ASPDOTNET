@@ -19,6 +19,7 @@ namespace api.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Streams> Streams { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<AttendenceRegister> Attendances { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<SchoolStaff> SchoolStaff { get; set; }

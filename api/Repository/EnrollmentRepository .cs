@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
 {
@@ -15,29 +16,52 @@ namespace api.Repository
         {
             _context = context;
         }
-        public Task<Enrollment> CreateEnrollmentAsync(Enrollment enrollment)
+        public async Task<Enrollment> CreateEnrollmentAsync(Enrollment enrollment)
         {
-            throw new NotImplementedException();
+            await _context.Enrollments.AddAsync(enrollment);
+            await _context.SaveChangesAsync();
+            return enrollment;
         }
 
-        public Task<Enrollment> DeleteEnrollmentAsync(int id)
+        public async Task<Enrollment> DeleteEnrollmentAsync(int id)
         {
-            throw new NotImplementedException();
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(x => x.EnrollmentID == id);
+            if (enrollment == null)
+            {
+                return null;
+            }
+            _context.Enrollments.Remove(enrollment);
+            await _context.SaveChangesAsync();
+            return enrollment;
         }
 
-        public Task<List<Enrollment>> GetAllEnrollmentsAsync()
+        public async Task<List<Enrollment>> GetAllEnrollmentsAsync()
         {
-            throw new NotImplementedException();
+            var enrol = await _context.Enrollments.Include(x => x.Students).ToListAsync();
+            return enrol;
         }
 
-        public Task<List<Enrollment>> GetEnrollmentsByID(int id)
+        public async Task<List<Enrollment>> GetEnrollmentsByID(int id)
         {
-            throw new NotImplementedException();
+           var enrolments = await _context.Enrollments.Where(x => x.EnrollmentID == id).ToListAsync();
+           if(enrolments.Count == 0){
+            return null;
+           }
+           return enrolments;
         }
 
-        public Task<Enrollment> UpdateEnrollmentAsync(Enrollment enrollment)
+        public async Task<Enrollment> UpdateEnrollmentAsync(int id, Enrollment enrollment)
         {
-            throw new NotImplementedException();
+            var enrolment = await _context.Enrollments.SingleOrDefaultAsync(x => x.EnrollmentID==id);
+            if(enrolment == null){
+                return null;
+            }
+            
+            enrolment.EnrollmentDate = enrollment.EnrollmentDate;
+            await _context.SaveChangesAsync();
+            return enrollment;
         }
+
+      
     }
 }
