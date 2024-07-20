@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class init1 : Migration
+    public partial class initLAST : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,6 +22,21 @@ namespace api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Department", x => x.departmentId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Enrollments",
+                columns: table => new
+                {
+                    EnrollmentID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.EnrollmentID);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,6 +173,30 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EnrollmentSubject",
+                columns: table => new
+                {
+                    EnrollmentsEnrollmentID = table.Column<int>(type: "int", nullable: false),
+                    SubjectsSubjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EnrollmentSubject", x => new { x.EnrollmentsEnrollmentID, x.SubjectsSubjectId });
+                    table.ForeignKey(
+                        name: "FK_EnrollmentSubject_Enrollments_EnrollmentsEnrollmentID",
+                        column: x => x.EnrollmentsEnrollmentID,
+                        principalTable: "Enrollments",
+                        principalColumn: "EnrollmentID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EnrollmentSubject_Subject_SubjectsSubjectId",
+                        column: x => x.SubjectsSubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attendence",
                 columns: table => new
                 {
@@ -177,10 +216,44 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "EnrollmentStudent",
+                columns: table => new
+                {
+                    EnrollmentsEnrollmentID = table.Column<int>(type: "int", nullable: false),
+                    StudentsStudentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EnrollmentStudent", x => new { x.EnrollmentsEnrollmentID, x.StudentsStudentID });
+                    table.ForeignKey(
+                        name: "FK_EnrollmentStudent_Enrollments_EnrollmentsEnrollmentID",
+                        column: x => x.EnrollmentsEnrollmentID,
+                        principalTable: "Enrollments",
+                        principalColumn: "EnrollmentID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EnrollmentStudent_Student_StudentsStudentID",
+                        column: x => x.StudentsStudentID,
+                        principalTable: "Student",
+                        principalColumn: "StudentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Attendence_StudentId",
                 table: "Attendence",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EnrollmentStudent_StudentsStudentID",
+                table: "EnrollmentStudent",
+                column: "StudentsStudentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EnrollmentSubject_SubjectsSubjectId",
+                table: "EnrollmentSubject",
+                column: "SubjectsSubjectId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Grades_streamsStreamId",
@@ -215,22 +288,31 @@ namespace api.Migrations
                 name: "Attendence");
 
             migrationBuilder.DropTable(
-                name: "SchoolStaff");
+                name: "EnrollmentStudent");
 
             migrationBuilder.DropTable(
-                name: "Subject");
+                name: "EnrollmentSubject");
+
+            migrationBuilder.DropTable(
+                name: "SchoolStaff");
 
             migrationBuilder.DropTable(
                 name: "Student");
 
             migrationBuilder.DropTable(
+                name: "Enrollments");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
+
+            migrationBuilder.DropTable(
                 name: "Department");
 
             migrationBuilder.DropTable(
-                name: "Teacher");
+                name: "Grades");
 
             migrationBuilder.DropTable(
-                name: "Grades");
+                name: "Teacher");
 
             migrationBuilder.DropTable(
                 name: "Streams");

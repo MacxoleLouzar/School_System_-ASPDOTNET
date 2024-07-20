@@ -22,6 +22,36 @@ namespace api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EnrollmentStudent", b =>
+                {
+                    b.Property<int>("EnrollmentsEnrollmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentsStudentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnrollmentsEnrollmentID", "StudentsStudentID");
+
+                    b.HasIndex("StudentsStudentID");
+
+                    b.ToTable("EnrollmentStudent");
+                });
+
+            modelBuilder.Entity("EnrollmentSubject", b =>
+                {
+                    b.Property<int>("EnrollmentsEnrollmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectsSubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnrollmentsEnrollmentID", "SubjectsSubjectId");
+
+                    b.HasIndex("SubjectsSubjectId");
+
+                    b.ToTable("EnrollmentSubject");
+                });
+
             modelBuilder.Entity("api.Model.AttendenceRegister", b =>
                 {
                     b.Property<int>("AttendenceRegisterId")
@@ -58,6 +88,28 @@ namespace api.Migrations
                     b.HasKey("departmentId");
 
                     b.ToTable("Department");
+                });
+
+            modelBuilder.Entity("api.Model.Enrollment", b =>
+                {
+                    b.Property<int>("EnrollmentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentID"));
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("EnrollmentID");
+
+                    b.ToTable("Enrollments");
                 });
 
             modelBuilder.Entity("api.Model.Grades", b =>
@@ -271,6 +323,36 @@ namespace api.Migrations
                     b.HasKey("TeacherId");
 
                     b.ToTable("Teacher");
+                });
+
+            modelBuilder.Entity("EnrollmentStudent", b =>
+                {
+                    b.HasOne("api.Model.Enrollment", null)
+                        .WithMany()
+                        .HasForeignKey("EnrollmentsEnrollmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Model.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsStudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EnrollmentSubject", b =>
+                {
+                    b.HasOne("api.Model.Enrollment", null)
+                        .WithMany()
+                        .HasForeignKey("EnrollmentsEnrollmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Model.Subject", null)
+                        .WithMany()
+                        .HasForeignKey("SubjectsSubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("api.Model.AttendenceRegister", b =>

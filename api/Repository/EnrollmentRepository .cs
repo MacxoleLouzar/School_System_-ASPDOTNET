@@ -37,31 +37,39 @@ namespace api.Repository
 
         public async Task<List<Enrollment>> GetAllEnrollmentsAsync()
         {
-            var enrol = await _context.Enrollments.Include(x => x.Students).ToListAsync();
+            var enrol = await _context.Enrollments
+            .Include(x => x.Students)
+            .Include(x => x.Subjects)
+            .ToListAsync();
             return enrol;
         }
 
         public async Task<List<Enrollment>> GetEnrollmentsByID(int id)
         {
-           var enrolments = await _context.Enrollments.Where(x => x.EnrollmentID == id).ToListAsync();
-           if(enrolments.Count == 0){
-            return null;
-           }
-           return enrolments;
+            var enrolments = await _context.Enrollments.Where(x => x.EnrollmentID == id)
+            .Include(x => x.Students)
+             .Include(x => x.Subjects)
+            .ToListAsync();
+            if (enrolments.Count == 0)
+            {
+                return null;
+            }
+            return enrolments;
         }
 
         public async Task<Enrollment> UpdateEnrollmentAsync(int id, Enrollment enrollment)
         {
-            var enrolment = await _context.Enrollments.SingleOrDefaultAsync(x => x.EnrollmentID==id);
-            if(enrolment == null){
+            var enrolment = await _context.Enrollments.SingleOrDefaultAsync(x => x.EnrollmentID == id);
+            if (enrolment == null)
+            {
                 return null;
             }
-            
+
             enrolment.EnrollmentDate = enrollment.EnrollmentDate;
             await _context.SaveChangesAsync();
             return enrollment;
         }
 
-      
+
     }
 }

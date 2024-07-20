@@ -26,7 +26,7 @@ namespace api.Mappers
                 GradeName = grade.GradeName,
                 streams = grade.streams,
                 Year = grade.Year,
-                Students = grade.Students?.Select(x => x.ToStudentListDTO()).ToList(),
+                Students = grade.Students.Select(x => x.ToStudentListDTO()).ToList(),
             };
         }
         public static Grades ToEditGradeDto(this GradeUpdateDTO gradeUpdateDTO)

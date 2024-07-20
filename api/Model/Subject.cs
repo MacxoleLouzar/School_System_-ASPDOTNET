@@ -17,5 +17,7 @@ namespace api.Model
         public int StreamId { get; set; }
         public Streams? Streams { get; set; }
         public Teacher? Teacher { get; set; }
+
+        public List<Enrollment>? Enrollments { get; set; }
     }
 }

@@ -13,6 +13,5 @@ namespace api.Interfaces
         Task<Enrollment> CreateEnrollmentAsync(Enrollment enrollment);
         Task<Enrollment> UpdateEnrollmentAsync(int id, Enrollment enrollment);
         Task<Enrollment> DeleteEnrollmentAsync(int id);
-
     }
 }
