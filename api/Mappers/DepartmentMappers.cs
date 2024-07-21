@@ -25,7 +25,7 @@ namespace api.Mappers
             };
         }
 
-        public static DepartUpdateDTO ToDepartUpdateDTO(this Department departmentModel)
+        public static DepartUpdateDTO ToDepartmentFromUpdateDTO(this Department departmentModel)
         {
             return new DepartUpdateDTO
             {

@@ -33,6 +33,11 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return result.Entity;
         }
+        //Added for 1 to many relationship
+        public Task<bool> DepartmentExists(int id)
+        {
+           return _context.Departments.AnyAsync(x => x.departmentId == id);
+        }
 
         public async Task<List<Department>> GetAllAsync()
         {

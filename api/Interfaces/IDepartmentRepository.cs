@@ -13,5 +13,6 @@ namespace api.Interfaces
         Task<Department> CreateAsync(Department department);    
         Task<Department?> UpdateAsync(int id, Department department);
         Task<Department?> DeleteAsync(int id);
+        Task<bool> DepartmentExists(int id);
     }
 }
