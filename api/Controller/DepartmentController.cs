@@ -47,21 +47,6 @@ namespace api.Controller
             return CreatedAtAction(nameof(GetDepartmentById), new { id = department.departmentId }, department.ToDepartmentDTO());
         }
 
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> UpdateDepartment([FromRoute] int id,[FromBody] DepartUpdateDTO departmentDTO)
-        // {
-        //     var existingDepartment = await _departmentRepository.GetByIdAsync(id);
-        //     if (existingDepartment == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     existingDepartment = departmentDTO.ToDepartmentFromUpdateDTO(existingDepartment);
-            
-        //     await _departmentRepository.UpdateAsync(id, existingDepartment);
-        //     return Ok(existingDepartment.ToDepartmentDTO());
-        // }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateDepartment(int id, [FromBody] DepartUpdateDTO departmentDTO)
         {
@@ -71,7 +56,7 @@ namespace api.Controller
                 return NotFound();
             }
 
-            existingDepartment = departmentDTO.ToDepartmentFromUpdateDTO(existingDepartment);
+            existingDepartment = departmentDTO.ToDepartmentFromUpdateDTO();
             await _departmentRepository.UpdateAsync(id, existingDepartment);
             return Ok(existingDepartment.ToDepartmentDTO());
         }

@@ -31,6 +31,8 @@ builder.Services.AddScoped<IStreamRepository, StreamRepository>();
 builder.Services.AddScoped<ISubjectRespository, SubjectRespository>();
 builder.Services.AddScoped<IGradeRepository, GradeRepository>();
 builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<ISchoolStaffRepository, SchoolStaffRepository>();
 
 var app = builder.Build();
 
