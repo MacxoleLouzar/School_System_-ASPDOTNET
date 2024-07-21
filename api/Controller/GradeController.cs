@@ -57,8 +57,8 @@ namespace api.Controller
                 return NotFound();
             }
 
-            var grade = updateGradeDto.ToEditGradeDto();
-            await _gradeRepository.UpdateGradeAsync(id, grade);
+           existingGrade = updateGradeDto.ToEditGradeDto();
+            await _gradeRepository.UpdateGradeAsync(id, existingGrade);
             return NoContent();
         }
 
