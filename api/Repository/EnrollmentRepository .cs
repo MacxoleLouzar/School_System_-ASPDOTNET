@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Interfaces;
 using api.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Repository
@@ -44,13 +45,10 @@ namespace api.Repository
             return enrol;
         }
 
-        public async Task<List<Enrollment>> GetEnrollmentsByID(int id)
+        public async Task<Enrollment> GetEnrollmentsByID(int id)
         {
-            var enrolments = await _context.Enrollments.Where(x => x.EnrollmentID == id)
-            .Include(x => x.Students)
-             .Include(x => x.Subjects)
-            .ToListAsync();
-            if (enrolments.Count == 0)
+            var enrolments = await _context.Enrollments.FirstOrDefaultAsync(x => x.EnrollmentID == id);
+            if (enrolments == null)
             {
                 return null;
             }
@@ -69,7 +67,5 @@ namespace api.Repository
             await _context.SaveChangesAsync();
             return enrollment;
         }
-
-
     }
 }

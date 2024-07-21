@@ -33,7 +33,7 @@ namespace api.Controller
          }
         
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEnrollmentByIdAsync(int id)
+        public async Task<IActionResult> GetEnrollmentByIdAsync([FromRoute]int id)
         {
             if(!ModelState.IsValid){
                 return BadRequest(ModelState);
@@ -42,9 +42,8 @@ namespace api.Controller
             if(enrollment == null){
                 return NotFound();
             }
-            return Ok(enrollment);
+            return Ok(enrollment.ToEnrollmentListDTO());
         }
-
 
         [HttpPost]
         public async Task<IActionResult> CreateEnrollment([FromBody] EnrollmentCreateDTO createDTO)
@@ -54,7 +53,7 @@ namespace api.Controller
             }
             var enrollment = createDTO.ToEnrollmentFromCreateDTO();
             await _enrollmentRepository.CreateEnrollmentAsync(enrollment);
-            return CreatedAtAction(nameof(GetEnrollmentByIdAsync), new {id = enrollment.EnrollmentID}, enrollment);
+            return CreatedAtAction(nameof(GetEnrollmentByIdAsync), new {id = enrollment.EnrollmentID}, enrollment.ToEnrollmentListDTO());
         }
 
         [HttpPut("{id}")]

@@ -101,12 +101,6 @@ namespace api.Migrations
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
-
                     b.HasKey("EnrollmentID");
 
                     b.ToTable("Enrollments");

@@ -9,7 +9,7 @@ namespace api.Interfaces
     public interface IEnrollmentRepository
     {
         Task<List<Enrollment>> GetAllEnrollmentsAsync();
-        Task<List<Enrollment>> GetEnrollmentsByID(int id);
+        Task<Enrollment> GetEnrollmentsByID(int id);
         Task<Enrollment> CreateEnrollmentAsync(Enrollment enrollment);
         Task<Enrollment> UpdateEnrollmentAsync(int id, Enrollment enrollment);
         Task<Enrollment> DeleteEnrollmentAsync(int id);

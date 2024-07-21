@@ -12,9 +12,9 @@ namespace api.Model
     {
         [Key]
         public int staffId { get; set; }
-        public string staffName { get; set; }
-        public string staffEmail { get; set; }
-        public string staffPosition { get; set; }
+        public string staffName { get; set; }= string.Empty;
+        public string staffEmail { get; set; }= string.Empty;
+        public string staffPosition { get; set; } = string.Empty;
         public int departmentId { get; set; }
         public Department department { get; set; }
 

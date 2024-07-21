@@ -12,8 +12,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240719184255_initLAST")]
-    partial class initLAST
+    [Migration("20240720012144_initL")]
+    partial class initL
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,12 +103,6 @@ namespace api.Migrations
 
                     b.Property<DateTime>("EnrollmentDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectId")
-                        .HasColumnType("int");
 
                     b.HasKey("EnrollmentID");
 
